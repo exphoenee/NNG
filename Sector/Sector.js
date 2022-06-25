@@ -13,7 +13,9 @@ class Sector {
     const sectorContainer = createDOMElem({
       tag: div,
       attrs: {
-        class: `sector-container ${this.name}`,
+        class: `sector-container ${this.name
+          .replaceAll(" ", "-")
+          .replaceAll(".", "")}`,
       },
       children: [
         {
@@ -25,8 +27,7 @@ class Sector {
         },
       ],
     });
-    const toRender = this.mirrored ? this.rows : this.rows.reverse();
-    toRender.forEach((row, rowNr) => {
+    this.rows.forEach((row, rowNr) => {
       const rowContainer = createDOMElem({
         tag: div,
         attrs: {
@@ -35,7 +36,8 @@ class Sector {
         content: `row: ${rowNr + 1}`,
         parent: sectorContainer[0],
       });
-      row.seat.forEach((seat) => {
+      const toRender = this.mirrored ? row.seat.reverse() : row.seat;
+      toRender.forEach((seat) => {
         createDOMElem({
           tag: div,
           attrs: {
