@@ -1,4 +1,4 @@
-class seat {
+class Seat {
   constructor({ number, ticketPrice, occupied, guestName }) {
     this.number = number;
     this.ticketPrice = ticketPrice;
