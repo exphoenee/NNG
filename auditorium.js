@@ -1,6 +1,8 @@
 class Auditorium {
   constructor(rows) {
-    rows.forEach((rowLength, rowNr) => {
+    this.rows = [];
+    rows.forEach((rowConf) => {
+      this.rows.push(new Row(rowConf));
       return this;
     });
   }
