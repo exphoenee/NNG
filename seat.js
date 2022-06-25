@@ -1,8 +1,8 @@
 class Seat {
-  constructor({ number, seatCategory, occupied, guestName }) {
+  constructor({ number, seatCategory, guestName }) {
     this.number = number;
-    this.setOccupied(guestName);
-    this.seatCategory = seatCategory;
+    guestName ? this.setOccupied(guestName) : this.setFree();
+    this.seatCategory = new TicketCategory(seatCategory);
     return this;
   }
 
@@ -17,8 +17,12 @@ class Seat {
     this.guestName = guestName;
   }
 
+  getSeatPrice() {
+    return this.seatCategory.getPrice();
+  }
+
   getSeatCategory() {
-    return this.ticketPrice;
+    return this.seatCategory.getCategory();
   }
 
   getTicketPrice() {
@@ -31,9 +35,11 @@ class Seat {
   setOccupied(guestName = "unknown") {
     this.occupied = true;
     this.setGuestName(guestName);
+    return this;
   }
   setFree() {
     this.occupied = false;
     this.setGuestName(null);
+    return this;
   }
 }
