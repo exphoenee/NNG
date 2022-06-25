@@ -1,2 +1,5 @@
-let balconyLeft = new Sector(centralAuditorium);
+let balconyLeft = new Sector({
+  rows: centralAuditorium,
+  name: "Central Auditory",
+});
 balconyLeft.render();
