@@ -1,7 +1,8 @@
 class Sector {
-  constructor({ rows, name }) {
+  constructor({ rows, name, mirrored }) {
     this.rows = [];
     this.name = name;
+    this.mirrored = mirrored;
     rows.forEach((rowConf) => {
       this.rows.push(new Row(rowConf));
       return this;
@@ -24,7 +25,8 @@ class Sector {
         },
       ],
     });
-    this.rows.forEach((row, rowNr) => {
+    const toRender = this.mirrored ? this.rows : this.rows.reverse();
+    toRender.forEach((row, rowNr) => {
       const rowContainer = createDOMElem({
         tag: div,
         attrs: {
