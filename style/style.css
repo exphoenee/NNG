@@ -1,11 +1,32 @@
 .row {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
 }
 .seat {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  overflow: hidden;
   margin: 5px;
+  aspect-ratio: 1;
+  padding: 5px;
+  min-width: 20px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 4px gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.seat.occupied::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  display: block;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
 }
 .category-0 {
   background-color: #afefa5;
@@ -18,4 +39,7 @@
 }
 .category-3 {
   background-color: #efa5a5;
+}
+.title p {
+  text-align: center;
 }
