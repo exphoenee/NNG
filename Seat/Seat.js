@@ -37,6 +37,7 @@ class Seat {
     this.setGuestName(guestName);
     return this;
   }
+
   setFree() {
     this.occupied = false;
     this.setGuestName(null);
