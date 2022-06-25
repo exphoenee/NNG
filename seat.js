@@ -1,9 +1,7 @@
 class Seat {
-  constructor({ number, ticketPrice, seatCategory, occupied, guestName }) {
+  constructor({ number, seatCategory, occupied, guestName }) {
     this.number = number;
-    this.ticketPrice = ticketPrice;
-    this.occupied = occupied;
-    this.guestName = guestName;
+    this.setOccupied(guestName);
     this.seatCategory = seatCategory;
     return this;
   }
