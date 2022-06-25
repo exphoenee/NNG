@@ -1,7 +1,8 @@
 class Sector {
-  constructor({ rows, name, mirrored }) {
+  constructor({ rows, name, mirrored, sectorId }) {
     this.rows = [];
     this.name = name;
+    this.sectorId = sectorId;
     this.mirrored = mirrored;
     rows.forEach((rowConf) => {
       this.rows.push(new Row(rowConf));
@@ -16,6 +17,7 @@ class Sector {
         class: `sector-container ${this.name
           .replaceAll(" ", "-")
           .replaceAll(".", "")}`,
+        id: `sectorId-${this.sectorId}`,
       },
       children: [
         {
@@ -47,6 +49,23 @@ class Sector {
           },
           parent: rowContainer[0],
           content: seat.number + 1,
+          handleEvent: {
+            event: "click",
+            cb: (e) => {
+              e.preventDefault();
+              console.log("clicked", e.target);
+
+              seat.occupied ? seat.setFree() : seat.setOccupied("Lali");
+
+              if (seat.occupied) {
+                e.target.classList.add("occupied");
+                e.target.classList.remove("free");
+              } else {
+                e.target.classList.add("free");
+                e.target.classList.remove("occupied");
+              }
+            },
+          },
         });
       });
     });
