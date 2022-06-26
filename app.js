@@ -10,4 +10,4 @@ const auditorium = new Auditorium([
   { rows: midBalconyMap, name: "Balcony mid.", mirrored: false },
   { rows: centralAuditorium, name: "Auditorium", mirrored: false },
 ]);
-auditorium.render();
+auditorium.render("app");
