@@ -4,8 +4,11 @@ class Sector {
     this.name = name;
     this.sectorId = sectorId;
     this.mirrored = mirrored;
-    rows.forEach((rowConf) => {
-      this.rows.push(new Row(rowConf));
+    this.seatNumber = 0;
+    rows.forEach((rowConf, index) => {
+      const row = new Row(rowConf);
+      this.seatNumber += row.seatNumber;
+      this.rows.push(row);
       return this;
     });
   }
