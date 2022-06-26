@@ -1,9 +1,12 @@
 .sector-container {
   padding: 5px;
 }
-
+.sector-container {
+  display: block;
+}
 .row {
   display: flex;
+  margin: auto 0;
   justify-content: center;
   align-items: center;
   font-size: 0.7rem;
