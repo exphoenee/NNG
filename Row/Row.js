@@ -1,10 +1,16 @@
 class Row {
-  constructor({ rowConf, rowNr }) {
+  constructor({ rowConf, rowNr, sectorId }) {
     this.seat = [];
-    this.rowNr = rowNr + 1;
+    this.rowNr = rowNr;
+    this.sectorId = sectorId;
     this.seatNumber = rowConf.length;
     rowConf.forEach((category, seatNr) => {
-      const row = new Seat({ number: seatNr, seatCategory: category });
+      const row = new Seat({
+        seatNr: seatNr,
+        sectorId: sectorId,
+        row: rowNr,
+        seatCategory: category,
+      });
       this.seat.push(row);
     });
     return this;
@@ -16,7 +22,7 @@ class Row {
       attrs: {
         class: `row rowNr-${this.rowNr} row-container`,
       },
-      content: `${this.rowNr}${trt[this.rowNr] || trt.default} row`,
+      content: `${this.rowNr + 1}${trt[this.rowNr] || trt.default} row`,
       parent: parent,
     });
 
