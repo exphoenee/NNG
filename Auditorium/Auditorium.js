@@ -17,7 +17,7 @@ class Auditorium {
       attrs: { class: "auditorium" },
       parent: parent,
     });
-    this.sectors.forEach((sector, index) => {
+    this.sectors.forEach((sector) => {
       sector.render(auditoriumElem);
     });
   }
