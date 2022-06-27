@@ -29,7 +29,8 @@ const auditorium = new Auditorium([
     mirrored: false,
     vert: 75,
     hor: 20,
-    angle: 60,
+    angle: 45,
+    offset: 1,
   },
   {
     rows: boxMap,
@@ -61,7 +62,8 @@ const auditorium = new Auditorium([
     mirrored: true,
     vert: 75,
     hor: 80,
-    angle: -60,
+    angle: -45,
+    offset: 1,
   },
   {
     rows: midBalconyMap,
