@@ -1,8 +1,16 @@
 class Seat {
-  constructor({ seatNr, seatCategory, guestName, sectorId, rowNr }) {
+  constructor({
+    seatNr,
+    seatCategory,
+    guestName,
+    sectorId,
+    rowNr,
+    sectorName,
+  }) {
     this.seatNr = seatNr;
     this.seatDOM = null;
     this.sectorId = sectorId;
+    this.sectorName = sectorName;
     this.rowNr = rowNr;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.seatCategory = new TicketCategory(seatCategory);
@@ -64,11 +72,9 @@ class Seat {
   setOccupied(guestName = "unknown") {
     this.occupied = true;
     this.setGuestName(guestName);
-    try {
+    if (this.seatDOM) {
       this.seatDOM.classList.add("occupied");
       this.seatDOM.classList.remove("free");
-    } catch {
-      console.error(`Seat is not rendered: ${this.seatNr}`);
     }
     return this;
   }
@@ -76,11 +82,9 @@ class Seat {
   setFree() {
     this.occupied = false;
     this.setGuestName(null);
-    try {
+    if (this.seatDOM) {
       this.seatDOM.classList.add("free");
       this.seatDOM.classList.remove("occupied");
-    } catch {
-      console.error(`Seat is not rendered: ${this.seatNr}`);
     }
     return this;
   }
