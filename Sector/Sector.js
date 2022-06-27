@@ -1,7 +1,9 @@
 class Sector {
-  constructor({ rows, name, mirrored, sectorId }) {
+  constructor({ rows, name, mirrored, sectorId, vert, hor, angle }) {
     this.rows = [];
     this.name = name;
+    this.vert = vert;
+    this.hor = hor;
     this.sectorId = sectorId;
     this.mirrored = mirrored;
     this.seatNumber = 0;
@@ -21,6 +23,11 @@ class Sector {
           .replaceAll(" ", "-")
           .replaceAll(".", "")}`,
         id: `sectorId-${this.sectorId}`,
+      },
+      style: {
+        top: `${this.vert}%`,
+        left: `${this.hor}%`,
+        transform: `translate(-50%,-50%) rotate(${this.angle}deg)`,
       },
       parent: parent,
       children: [
