@@ -1,7 +1,9 @@
 class Seat {
-  constructor({ number, seatCategory, guestName }) {
-    this.number = number;
+  constructor({ seatNr, seatCategory, guestName, sectorId, rowNr }) {
+    this.seatNr = seatNr;
     this.seatDOM = null;
+    this.sectorId = sectorId;
+    this.rowNr = rowNr;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.seatCategory = new TicketCategory(seatCategory);
     return this;
@@ -11,17 +13,17 @@ class Seat {
     this.seatDOM = createDOMElem({
       tag: div,
       attrs: {
-        class: `seat seatNr-${this.number} category-${
+        class: `seat seatNr-${this.seatNr} category-${
           this.seatCategory.seatCategory
         } ${this.occupied ? "occupied" : "free"}`,
       },
       parent: parent,
-      content: this.number + 1,
+      content: this.seatNr + 1,
       handleEvent: {
         event: "click",
         cb: (e) => {
           e.preventDefault();
-          console.log("clicked", e.target);
+          console.log("clicked", this);
 
           this.occupied ? this.setFree() : this.setOccupied("Lali");
 
@@ -34,7 +36,7 @@ class Seat {
   }
 
   getNumber() {
-    return this.number;
+    return this.seatNr;
   }
 
   getGuestName() {
@@ -66,7 +68,7 @@ class Seat {
       this.seatDOM.classList.add("occupied");
       this.seatDOM.classList.remove("free");
     } catch {
-      console.error(`Seat is not rendered: ${this.number}`);
+      console.error(`Seat is not rendered: ${this.seatNr}`);
     }
     return this;
   }
@@ -78,7 +80,7 @@ class Seat {
       this.seatDOM.classList.add("free");
       this.seatDOM.classList.remove("occupied");
     } catch {
-      console.error(`Seat is not rendered: ${this.number}`);
+      console.error(`Seat is not rendered: ${this.seatNr}`);
     }
     return this;
   }
