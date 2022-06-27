@@ -22,13 +22,15 @@ class Row {
     const toRender = mirrored ? this.seat.reverse() : this.seat;
 
     toRender.forEach((seat, index) => {
-      if (offset && index == this.seatNumber) {
-        createDOMElem({
-          tag: div,
-          attrs: { class: "offset" },
-          parent: rowContainer,
-        });
-        console.log("offset");
+      if (offset && index == 0) {
+        console.log(this.seatNumber, index);
+        for (let i = 0; i < index; i++) {
+          createDOMElem({
+            tag: div,
+            attrs: { class: "offset" },
+            parent: rowContainer,
+          });
+        }
       }
       seat.render(rowContainer);
     });
