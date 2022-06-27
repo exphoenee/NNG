@@ -9,8 +9,8 @@ class Sector {
     this.mirrored = mirrored;
     this.seatNumber = 0;
     this.offset = offset;
-    rows.forEach((rowConf, index) => {
-      const row = new Row(rowConf);
+    rows.forEach((rowConf, rowNr) => {
+      const row = new Row({ rowConf, rowNr });
       this.seatNumber += row.seatNumber;
       this.rows.push(row);
       return this;
@@ -43,8 +43,8 @@ class Sector {
       ],
     });
 
-    this.rows.forEach((row, rowNr) => {
-      row.render(sectorContainer, rowNr, this.mirrored, this.offset);
+    this.rows.forEach((row) => {
+      row.render(sectorContainer, this.mirrored, this.offset);
     });
   }
 }
