@@ -4,6 +4,7 @@ class Sector {
     this.name = name;
     this.vert = vert;
     this.hor = hor;
+    this.angle = angle;
     this.sectorId = sectorId;
     this.mirrored = mirrored;
     this.seatNumber = 0;
@@ -27,7 +28,7 @@ class Sector {
       style: {
         top: `${this.vert}%`,
         left: `${this.hor}%`,
-        transform: `translate(-50%,-50%) rotate(${this.angle}deg)`,
+        transform: `translate(-50%,-50%) rotate(${this.angle || 0}deg)`,
       },
       parent: parent,
       children: [
