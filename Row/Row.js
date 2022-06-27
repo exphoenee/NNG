@@ -9,7 +9,7 @@ class Row {
     return this;
   }
 
-  render(parent, rowNr, mirrored = false) {
+  render(parent, rowNr, mirrored, offset) {
     const rowContainer = createDOMElem({
       tag: div,
       attrs: {
@@ -20,7 +20,16 @@ class Row {
     });
 
     const toRender = mirrored ? this.seat.reverse() : this.seat;
-    toRender.forEach((seat) => {
+
+    toRender.forEach((seat, index) => {
+      if (offset && index == this.seatNumber) {
+        createDOMElem({
+          tag: div,
+          attrs: { class: "offset" },
+          parent: rowContainer,
+        });
+        console.log("offset");
+      }
       seat.render(rowContainer);
     });
   }
