@@ -16,16 +16,17 @@ class Row {
       attrs: {
         class: `row rowNr-${this.rowNr} row-container`,
       },
-      content: `row: ${this.rowNr}`,
+      content: `${this.rowNr}${trt[this.rowNr] || trt.default} row`,
       parent: parent,
     });
 
     const toRender = mirrored ? this.seat.reverse() : this.seat;
 
     toRender.forEach((seat, index) => {
-      if (offset > 0 && index == 0) {
-        console.log(this.seatNumber, index);
-        for (let i = 0; i < index; i++) {
+      seat.render(rowContainer);
+      if (offset > 0 && index == toRender.length - 1) {
+        console.log(index);
+        for (let i = 0; i < this.rowNr - 1; i++) {
           console.log(i);
           createDOMElem({
             tag: div,
@@ -34,7 +35,6 @@ class Row {
           });
         }
       }
-      seat.render(rowContainer);
     });
   }
 }
