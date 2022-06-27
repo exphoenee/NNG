@@ -10,7 +10,7 @@ class Sector {
     this.seatNumber = 0;
     this.offset = offset;
     rows.forEach((rowConf, rowNr) => {
-      const row = new Row({ rowConf, rowNr, sectorId });
+      const row = new Row({ rowConf, rowNr, sectorId, sectorName: name });
       this.seatNumber += row.seatNumber;
       this.rows.push(row);
       return this;
