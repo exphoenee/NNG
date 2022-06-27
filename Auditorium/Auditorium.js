@@ -12,13 +12,13 @@ class Auditorium {
   }
 
   render(parent = "app") {
-    const auditorium = createDOMElem({
+    const auditoriumElem = createDOMElem({
       tag: div,
       attrs: { class: "auditorium" },
       parent: parent,
     });
-    this.sectors.forEach((sector) => {
-      sector.render(auditorium);
+    this.sectors.forEach((sector, index) => {
+      sector.render(auditoriumElem);
     });
   }
 }
