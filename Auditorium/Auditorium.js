@@ -2,8 +2,8 @@ class Auditorium {
   constructor(sectors) {
     this.sectors = [];
     this.seatNumber = 0;
-    sectors.forEach((sectorConf, index) => {
-      const sector = new Sector({ ...sectorConf, sectorId: index });
+    sectors.forEach((sectorConf, sectorId) => {
+      const sector = new Sector({ ...sectorConf, sectorId });
       this.seatNumber += sector.seatNumber;
       this.sectors.push(sector);
     });
