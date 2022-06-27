@@ -1,17 +1,19 @@
 class Row {
-  constructor({ rowConf, rowNr, sectorId }) {
+  constructor({ rowConf, rowNr, sectorId, sectorName }) {
     this.seat = [];
     this.rowNr = rowNr;
     this.sectorId = sectorId;
     this.seatNumber = rowConf.length;
+    this.sectorName = sectorName;
     rowConf.forEach((category, seatNr) => {
-      const row = new Seat({
+      const thisSeat = new Seat({
         seatNr: seatNr,
         sectorId: sectorId,
-        row: rowNr,
+        rowNr: rowNr,
         seatCategory: category,
+        sectorName: sectorName,
       });
-      this.seat.push(row);
+      this.seat.push(thisSeat);
     });
     return this;
   }
@@ -31,9 +33,7 @@ class Row {
     toRender.forEach((seat, index) => {
       seat.render(rowContainer);
       if (offset > 0 && index == toRender.length - 1) {
-        console.log(index);
         for (let i = 0; i < this.rowNr - 1; i++) {
-          console.log(i);
           createDOMElem({
             tag: div,
             attrs: { class: "offset" },
