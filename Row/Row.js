@@ -1,6 +1,7 @@
 class Row {
-  constructor(rowConf) {
+  constructor({ rowConf, rowNr }) {
     this.seat = [];
+    this.rowNr = rowNr + 1;
     this.seatNumber = rowConf.length;
     rowConf.forEach((category, seatNr) => {
       const row = new Seat({ number: seatNr, seatCategory: category });
@@ -9,22 +10,23 @@ class Row {
     return this;
   }
 
-  render(parent, rowNr, mirrored, offset) {
+  render(parent, mirrored, offset) {
     const rowContainer = createDOMElem({
       tag: div,
       attrs: {
-        class: `row rowNr-${rowNr} row-container`,
+        class: `row rowNr-${this.rowNr} row-container`,
       },
-      content: `row: ${rowNr + 1}`,
+      content: `row: ${this.rowNr}`,
       parent: parent,
     });
 
     const toRender = mirrored ? this.seat.reverse() : this.seat;
 
     toRender.forEach((seat, index) => {
-      if (offset && index == 0) {
+      if (offset > 0 && index == 0) {
         console.log(this.seatNumber, index);
         for (let i = 0; i < index; i++) {
+          console.log(i);
           createDOMElem({
             tag: div,
             attrs: { class: "offset" },
