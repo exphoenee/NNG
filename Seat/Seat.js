@@ -31,9 +31,9 @@ class Seat {
         event: "click",
         cb: (e) => {
           e.preventDefault();
-          console.log("clicked", this);
+          //console.log("clicked", this);
 
-          this.occupied ? this.setFree() : this.setOccupied("Lali");
+          this.occupied ? this.setFree() : this.setOccupied("Test");
 
           if (this.occupied) {
           } else {
