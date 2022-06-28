@@ -1,5 +1,15 @@
 class Sector {
-  constructor({ rows, name, mirrored, sectorId, vert, hor, angle, offset }) {
+  constructor({
+    rows,
+    name,
+    mirrored,
+    sectorId,
+    vert,
+    hor,
+    angle,
+    offset,
+    sectorPreference,
+  }) {
     this.rows = [];
     this.name = name;
     this.vert = vert;
@@ -9,8 +19,15 @@ class Sector {
     this.mirrored = mirrored;
     this.seatNumber = 0;
     this.offset = offset;
+    this.sectorPreference = sectorPreference;
     rows.forEach((rowConf, rowNr) => {
-      const row = new Row({ rowConf, rowNr, sectorId, sectorName: name });
+      const row = new Row({
+        rowConf,
+        rowNr,
+        sectorId,
+        sectorName: name,
+        sectorPreference,
+      });
       this.seatNumber += row.seatNumber;
       this.rows.push(row);
       return this;
