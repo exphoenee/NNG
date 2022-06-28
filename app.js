@@ -17,5 +17,5 @@ const seatNr = allSeats.length;
 const reserved = Math.ceil(seatNr * 0.2);
 
 do {
-  allSeats[Math.round(Math.random() * seatNr)].setOccupied("Test");
+  allSeats[Math.round(Math.random() * (seatNr - 1))].setOccupied("Random");
 } while (auditorium.getOccupiedSeats().length <= reserved);
