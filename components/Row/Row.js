@@ -13,7 +13,7 @@ class Row {
         sectorId: sectorId,
         rowNr: rowNr,
         sectorPreference: sectorPreference,
-        seatPreference: Math.ceil(Math.abs(seatNr - this.seatsNumber / 2)),
+        seatPosPreference: Math.ceil(Math.abs(seatNr - this.seatsNumber / 2)),
         seatCategory: category,
         sectorName: sectorName,
       });
