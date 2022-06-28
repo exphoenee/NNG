@@ -1,3 +1,4 @@
+/* this is the class of a ticket, i dont remember why i made this, but it works well */
 class TicketCategory {
   constructor(seatCategory) {
     this.category = seatCategory;
