@@ -6,7 +6,7 @@ class Seat {
     sectorId,
     rowNr,
     sectorName,
-    seatPreference,
+    seatPosPreference,
     sectorPreference,
   }) {
     this.seatNr = seatNr;
@@ -14,7 +14,8 @@ class Seat {
     this.sectorId = sectorId;
     this.sectorName = sectorName;
     this.rowNr = rowNr;
-    this.seatPreference = seatPreference;
+    this.seatPosPreference = seatPosPreference;
+    this.pricePreference = 4 - seatCategory;
     this.sectorPreference = sectorPreference;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.seatCategory = new TicketCategory(seatCategory);
@@ -26,7 +27,7 @@ class Seat {
       tag: div,
       attrs: {
         class: `seat seatNr-${this.seatNr} category-${
-          this.seatCategory.seatCategory
+          this.seatCategory.category
         } ${this.occupied ? "occupied" : "free"}`,
       },
       parent: parent,
@@ -35,13 +36,7 @@ class Seat {
         event: "click",
         cb: (e) => {
           e.preventDefault();
-          //console.log("clicked", this);
-
           this.occupied ? this.setFree() : this.setOccupied("Test");
-
-          if (this.occupied) {
-          } else {
-          }
         },
       },
     });
@@ -74,7 +69,6 @@ class Seat {
     return this.occupied;
   }
   setOccupied(guestName = "unknown") {
-    console.log(this);
     this.occupied = true;
     this.setGuestName(guestName);
     if (this.seatDOM) {
