@@ -29,8 +29,20 @@ class Auditorium {
     }
   }
 
-  optimize({ min, max }) {
-    const occupied = this.getOccupiedSeats;
+  reserve({ min, max }) {
+    const sectorsOrdered = this.sectors.sort((a, b) => {
+      a.sectorPreference - b.sectorPreference;
+    });
+    sectorsOrdered.forEach((sector) => {
+      sector.rows.forEach((row) => {
+        for (let i = 0; i < row.seatsNumber - max + 1; i++) {
+          const nexNeighbords = row.seats
+            .slice(i, i + max)
+            .map((seat) => seat.occupied);
+          nexNeighbords.every((seat) => !seat);
+        }
+      });
+    });
   }
 
   getSeatNumber() {
