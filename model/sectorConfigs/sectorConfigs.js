@@ -1,28 +1,28 @@
 boxLeft1 = {
   rows: boxMap,
   name: "Box left 1.",
-  mirrored: true,
+  mirrored: false,
   vert: 25,
   hor: 15,
-  angle: -90,
+  angle: 90,
   preference: 1,
 };
 boxLeft2 = {
   rows: boxMap,
   name: "Box left 2.",
-  mirrored: true,
+  mirrored: false,
   vert: 40,
   hor: 15,
-  angle: -90,
+  angle: 90,
   preference: 1,
 };
 boxLeft3 = {
   rows: boxMap,
   name: "Box left 3.",
-  mirrored: true,
+  mirrored: false,
   vert: 55,
   hor: 15,
-  angle: -90,
+  angle: 90,
   preference: 1,
 };
 sideBalconyLeft = {
@@ -38,28 +38,28 @@ sideBalconyLeft = {
 boxRight1 = {
   rows: boxMap,
   name: "Box right 1.",
-  mirrored: false,
+  mirrored: true,
   vert: 25,
   hor: 85,
-  angle: 90,
+  angle: -90,
   preference: 1,
 };
 boxRight2 = {
   rows: boxMap,
   name: "Box right 2.",
-  mirrored: false,
+  mirrored: true,
   vert: 40,
   hor: 85,
-  angle: 90,
+  angle: -90,
   preference: 1,
 };
 boxRight3 = {
   rows: boxMap,
   name: "Box right 3.",
-  mirrored: false,
+  mirrored: true,
   vert: 55,
   hor: 85,
-  angle: 90,
+  angle: -90,
   preference: 1,
 };
 sideBalconyRight = {
