@@ -22,10 +22,10 @@ class Sector {
   }
 
   getOccupiedSeats() {
-    return this.rows.map((row) => row.getOccupied()).flat(1);
+    return this.rows.map((row) => row.getOccupiedSeats()).flat(1);
   }
   getFreeSeats() {
-    return this.rows.map((row) => row.getFree()).flat(1);
+    return this.rows.map((row) => row.getFreeSeats()).flat(1);
   }
 
   render(parent) {
