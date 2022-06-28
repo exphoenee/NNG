@@ -39,8 +39,16 @@ class Row {
       attrs: {
         class: `row rowNr-${this.rowNr} row-container`,
       },
-      content: `${this.rowNr + 1}${trt[this.rowNr] || trt.default} row`,
       parent: parent,
+    });
+
+    const rowNumbering = createDOMElem({
+      tag: p,
+      attrs: {
+        class: `row rowNr-${this.rowNr} row-container`,
+      },
+      content: `${this.rowNr + 1}${trt[this.rowNr] || trt.default} row`,
+      parent: rowContainer,
     });
 
     const toRender = mirrored ? this.seats.reverse() : this.seats;
