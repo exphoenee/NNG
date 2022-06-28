@@ -1,15 +1,19 @@
 class Row {
-  constructor({ rowConf, rowNr, sectorId, sectorName }) {
+  constructor({ rowConf, rowNr, sectorId, sectorName, sectorPreference }) {
     this.seats = [];
     this.rowNr = rowNr;
     this.sectorId = sectorId;
     this.seatsNumber = rowConf.length;
+    this.sectorPreference = rowConf.length - rowNr;
     this.sectorName = sectorName;
+    this.sectorPreference = sectorPreference;
     rowConf.forEach((category, seatNr) => {
       const thisSeat = new Seat({
         seatNr: seatNr,
         sectorId: sectorId,
         rowNr: rowNr,
+        sectorPreference: sectorPreference,
+        seatPreference: Math.ceil(Math.abs(seatNr - this.seatsNumber / 2)),
         seatCategory: category,
         sectorName: sectorName,
       });
