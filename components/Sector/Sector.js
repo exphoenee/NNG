@@ -17,8 +17,15 @@ class Sector {
     });
   }
 
-  getOccupied() {
+  getAllSeats() {
+    return this.rows.map((row) => row.getAllSeats()).flat(1);
+  }
+
+  getOccupiedSeats() {
     return this.rows.map((row) => row.getOccupied()).flat(1);
+  }
+  getFreeSeats() {
+    return this.rows.map((row) => row.getFree()).flat(1);
   }
 
   render(parent) {
