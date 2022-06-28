@@ -12,4 +12,7 @@ const auditorium = new Auditorium([
 ]);
 auditorium.render("app");
 let occ = auditorium.getOccupied();
-console.log(occ);
+let free = auditorium.getFreeSeats();
+let all = auditorium.getAllSeats();
+console.log(occ, free, all);
+getAllSeats.forEach((seat)=>{seat.})
