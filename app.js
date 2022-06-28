@@ -1,3 +1,4 @@
+//creating the auditorium object, form the sector configs - pleases see in the model directory
 const auditorium = new Auditorium([
   centralAuditorium,
   midBalcony,
@@ -10,7 +11,12 @@ const auditorium = new Auditorium([
   boxRight2,
   boxRight3,
 ]);
+
+//let it render the UI of auditorium
 auditorium.render("app");
 
+//fill up with random occupation
 auditorium.randomReservation(0.2);
+
+//find solutions for other neighbourg seats
 auditorium.reserve({ min: 2, max: 4 });
