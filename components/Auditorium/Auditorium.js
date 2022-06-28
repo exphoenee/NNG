@@ -11,8 +11,16 @@ class Auditorium {
     return this;
   }
 
-  getOccupied() {
+  getAllSeats() {
+    return this.sectors.map((sector) => sector.getAllSeats()).flat(1);
+  }
+
+  getOccupiedSeats() {
     return this.sectors.map((sector) => sector.getOccupied()).flat(1);
+  }
+
+  getFreeSeats() {
+    return this.sectors.map((sector) => sector.getFree()).flat(1);
   }
 
   render(parent = "app") {
