@@ -15,7 +15,6 @@ class Seat {
     this.sectorName = sectorName;
     this.rowNr = rowNr;
     this.seatPosPreference = seatPosPreference;
-    this.pricePreference = 4 - seatCategory;
     this.sectorPreference = sectorPreference;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.seatCategory = new TicketCategory(seatCategory);
