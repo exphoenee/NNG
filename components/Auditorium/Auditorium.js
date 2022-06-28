@@ -15,6 +15,8 @@ class Auditorium {
       this.sectors.push(sector);
     });
 
+    this.addPanel();
+
     return this;
   }
 
@@ -88,7 +90,7 @@ class Auditorium {
               .join(", ");
 
             //genereating text form results to make it more comfortable to read for humans
-            const neighboursText = `Sector: ${nextNeighbours[0].sectorName} | row#: ${nextNeighbours[0].rowNr} | seat#: ${seatText} | value: ${positionValue}`;
+            const neighboursText = `Sector: ${nextNeighbours[0].sectorName} | row#: ${rowNumber} | seat#: ${seatText} | value: ${positionValue}`;
 
             //collect all results into an array
             results.push({
@@ -143,6 +145,66 @@ class Auditorium {
     //rendering every sectors
     this.sectors.forEach((sector) => {
       sector.render(auditoriumElem);
+    });
+  }
+
+  freeUpAllSeats() {
+    this.getAllSeats().forEach((seat) => seat.setFree());
+  }
+
+  addPanel() {
+    const panel = createDOMElem({
+      tag: div,
+      attrs: { class: "panel" },
+      style: {
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        padding: "10px",
+        margin: "10px",
+      },
+    });
+    const max = createDOMElem({
+      tag: input,
+      attrs: { class: "max", value: 4 },
+      style: {
+        width: "60px",
+      },
+      parent: panel,
+    });
+    createDOMElem({
+      tag: button,
+      attrs: { class: "reserve" },
+      parent: panel,
+      handleEvent: {
+        event: "click",
+        cb: () => {
+          this.reserve({ min: 2, max: max.value || 4 });
+        },
+      },
+      content: "reserve",
+    });
+    const rnd = createDOMElem({
+      tag: input,
+      attrs: { class: "random", value: 0.2 },
+      style: {
+        width: "60px",
+      },
+      parent: panel,
+    });
+
+    createDOMElem({
+      tag: button,
+      attrs: { class: "randomize" },
+      parent: panel,
+      handleEvent: {
+        event: "click",
+        cb: () => {
+          this.freeUpAllSeats();
+          this.randomReservation(rnd.value);
+        },
+      },
+      content: "randomize",
     });
   }
 }
