@@ -33,16 +33,50 @@ class Auditorium {
     const sectorsOrdered = this.sectors.sort((a, b) => {
       a.sectorPreference - b.sectorPreference;
     });
+    let results = [];
     sectorsOrdered.forEach((sector) => {
       sector.rows.forEach((row) => {
         for (let i = 0; i < row.seatsNumber - max + 1; i++) {
-          const nexNeighbords = row.seats
-            .slice(i, i + max)
-            .map((seat) => seat.occupied);
-          nexNeighbords.every((seat) => !seat);
+          const nextNeighbours = row.seats.slice(i, i + max);
+          const isAllFree = nextNeighbours
+            .map((seat) => seat.occupied)
+            .every((seat) => !seat);
+          if (isAllFree) {
+            const neighboursPrice = nextNeighbours
+              .map((seat) => 4 - seat.seatCategory.category)
+              .reduce((sum, category) => sum + category);
+
+            const seatText = nextNeighbours
+              .map((seat) => seat.seatNr + 1)
+              .join(", ");
+            const neighboursText = `Sector: ${nextNeighbours[0].sectorName} | row#: ${nextNeighbours[0].rowNr} | seat#: ${seatText}`;
+            const positionIndex =
+              nextNeighbours
+                .map((seat) => seat.seatPosPreference)
+                .reduce((a, b) => a + b) / max;
+            const rowNumber = row.rowNr + 1;
+            const sectorPreference = sector.sectorPreference;
+            const positionvalue =
+              rowNumber *
+              sector.sectorPreference *
+              positionIndex *
+              neighboursPrice;
+            results.push({
+              neighbours: nextNeighbours,
+              seatNumbers: seatText,
+              neighboursText,
+              setorName: sector.name,
+              rowNumber,
+              sectorPreference,
+              positionIndex,
+              neighboursPrice,
+              positionvalue,
+            });
+          }
         }
       });
     });
+    console.table(results.sort((a, b) => a.positionvalue - b.positionvalue));
   }
 
   getSeatNumber() {
