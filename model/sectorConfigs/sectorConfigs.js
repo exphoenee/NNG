@@ -1,11 +1,13 @@
+/* these little object literals containting the properties of a sector  */
+
 boxLeft1 = {
-  rows: boxMap,
-  name: "Box left 1.",
-  mirrored: false,
-  vert: 25,
-  hor: 15,
-  angle: 90,
-  sectorPreference: 4,
+  rows: boxMap, // the rows, are the map of the sector, every row is an array what contains the price category of the seat
+  name: "Box left 1.", //name of the sector
+  mirrored: false, //it is mirrored or not
+  vert: 25, //the vertical position of the sector on the screen given in percentage
+  hor: 15, //the horizontal position of the sector on the screen given in percentage
+  angle: 90, //the angle of the sector on the screen given in degree
+  sectorPreference: 4, //the preference value of a sector to calculate to position value in a seat neibourghood
 };
 boxLeft2 = {
   rows: boxMap,
