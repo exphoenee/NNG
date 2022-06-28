@@ -6,12 +6,16 @@ class Seat {
     sectorId,
     rowNr,
     sectorName,
+    seatPreference,
+    sectorPreference,
   }) {
     this.seatNr = seatNr;
     this.seatDOM = null;
     this.sectorId = sectorId;
     this.sectorName = sectorName;
     this.rowNr = rowNr;
+    this.seatPreference = seatPreference;
+    this.sectorPreference = sectorPreference;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.seatCategory = new TicketCategory(seatCategory);
     return this;
@@ -70,6 +74,7 @@ class Seat {
     return this.occupied;
   }
   setOccupied(guestName = "unknown") {
+    console.log(this);
     this.occupied = true;
     this.setGuestName(guestName);
     if (this.seatDOM) {
