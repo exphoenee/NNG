@@ -1,16 +1,24 @@
+/* Object of the entire Auditorium, the constructor of the class gets an array, that is writing down, the properties of the auditorium, please see the sectorConfigs in model directory */
 class Auditorium {
   constructor(sectors) {
     this.sectors = [];
     this.seatNumber = 0;
+
+    //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
     sectors.forEach((sectorConf, sectorId) => {
       const sector = new Sector({ ...sectorConf, sectorId });
+
+      //form the sector getting the number of seats in the sector
       this.seatNumber += sector.seatNumber;
+
+      //push into the sectors of the auditorium
       this.sectors.push(sector);
     });
 
     return this;
   }
 
+  //filling up this auditorium with occupied seats
   randomReservation(ammount = 0) {
     if (ammount < 0.2) {
       console.error(
@@ -30,77 +38,109 @@ class Auditorium {
   }
 
   reserve({ min, max }) {
+    //at very first ordering the sectors
+    /* NOT NEEDED ANY MORE
     const sectorsOrdered = this.sectors.sort((a, b) => {
       a.sectorPreference - b.sectorPreference;
     });
+    */
+
     let results = [];
-    sectorsOrdered.forEach((sector) => {
+
+    //iterating through the sectors
+    this.sectors.forEach((sector) => {
+      //iterating throug the rows
       sector.rows.forEach((row) => {
         for (let i = 0; i < row.seatsNumber - max + 1; i++) {
+          //taking a sample form the current row to check they are free, if they are free calculating the value of this position.
           const nextNeighbours = row.seats.slice(i, i + max);
+
+          //checking all the required seats are free?
           const isAllFree = nextNeighbours
             .map((seat) => seat.occupied)
             .every((seat) => !seat);
+
           if (isAllFree) {
+            //calculating the price of all the seats - less value means a higher price
             const neighboursPrice = nextNeighbours
               .map((seat) => 4 - seat.seatCategory.category)
               .reduce((sum, category) => sum + category);
 
-            const seatText = nextNeighbours
-              .map((seat) => seat.seatNr + 1)
-              .join(", ");
-            const neighboursText = `Sector: ${nextNeighbours[0].sectorName} | row#: ${nextNeighbours[0].rowNr} | seat#: ${seatText}`;
+            //calculating the value of the seat position in the row - less is more in the middle - more valued has more offset
             const positionIndex =
               nextNeighbours
                 .map((seat) => seat.seatPosPreference)
                 .reduce((a, b) => a + b) / max;
+
+            //calculaing the correct row numbering
             const rowNumber = row.rowNr + 1;
-            const sectorPreference = sector.sectorPreference;
-            const positionvalue =
+
+            //the global value of the position
+            const positionValue =
               rowNumber *
               sector.sectorPreference *
               positionIndex *
               neighboursPrice;
+
+            //generating text about the seat numbers
+            const seatText = nextNeighbours
+              .map((seat) => seat.seatNr + 1)
+              .join(", ");
+
+            //genereating text form results to make it more comfortable to read for humans
+            const neighboursText = `Sector: ${nextNeighbours[0].sectorName} | row#: ${nextNeighbours[0].rowNr} | seat#: ${seatText} | value: ${positionValue}`;
+
+            //collect all results into an array
             results.push({
               neighbours: nextNeighbours,
               seatNumbers: seatText,
               neighboursText,
-              setorName: sector.name,
+              sectorName: sector.name,
               rowNumber,
-              sectorPreference,
+              sectorPreference: sector.sectorPreference,
               positionIndex,
               neighboursPrice,
-              positionvalue,
+              positionValue,
             });
           }
         }
       });
     });
-    console.table(results.sort((a, b) => a.positionvalue - b.positionvalue));
+
+    //printing out gthe results into the console log
+    console.table(results.sort((a, b) => a.positionValue - b.positionValue));
   }
 
+  //returning the number of the seats in this auditorium
   getSeatNumber() {
     return this.seatNumber;
   }
 
+  //returning all the seats in this auditorium
   getAllSeats() {
     return this.sectors.map((sector) => sector.getAllSeats()).flat(1);
   }
 
+  //returning all the occupied seats in this auditorium
   getOccupiedSeats() {
     return this.sectors.map((sector) => sector.getOccupiedSeats()).flat(1);
   }
 
+  //returning all the free seats in this auditorium
   getFreeSeats() {
     return this.sectors.map((sector) => sector.getFreeSeats()).flat(1);
   }
 
+  //rendering the complete auditorium
   render(parent = "app") {
+    //creating the div of auditorium
     const auditoriumElem = createDOMElem({
       tag: div,
       attrs: { class: "auditorium" },
       parent: parent,
     });
+
+    //rendering every sectors
     this.sectors.forEach((sector) => {
       sector.render(auditoriumElem);
     });
