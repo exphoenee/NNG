@@ -18,8 +18,15 @@ class Row {
     return this;
   }
 
-  getOccupied() {
+  getAllSeats() {
+    return this.seats;
+  }
+  getOccupiedSeats() {
     return this.seats.filter((seat) => seat.occupied);
+  }
+
+  getFreeSeats() {
+    return this.seats.filter((seat) => !seat.occupied);
   }
 
   render(parent, mirrored, offset) {
