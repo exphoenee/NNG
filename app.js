@@ -11,8 +11,11 @@ const auditorium = new Auditorium([
   boxRight3,
 ]);
 auditorium.render("app");
-let occ = auditorium.getOccupied();
-let free = auditorium.getFreeSeats();
-let all = auditorium.getAllSeats();
-console.log(occ, free, all);
-getAllSeats.forEach((seat)=>{seat.})
+
+const allSeats = auditorium.getAllSeats();
+const seatNr = allSeats.length;
+const reserved = Math.ceil(seatNr * 0.2);
+
+while (auditorium.getOccupiedSeats() < reserved) {
+  allSeats[Math.random() * seatNr].setOccupied("Test");
+}
