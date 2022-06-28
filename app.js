@@ -13,4 +13,4 @@ const auditorium = new Auditorium([
 auditorium.render("app");
 
 auditorium.randomReservation(0.2);
-auditorium.optimize({ min: 2, max: 4 });
+auditorium.reserve({ min: 2, max: 4 });
