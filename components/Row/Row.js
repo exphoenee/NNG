@@ -44,7 +44,7 @@ class Row {
     toRender.forEach((seat, index) => {
       seat.render(rowContainer);
       if (offset > 0 && index == toRender.length - 1) {
-        for (let i = 0; i < this.rowNr - 1; i++) {
+        for (let i = 0; i < this.rowNr; i++) {
           createDOMElem({
             tag: div,
             attrs: { class: "offset" },
