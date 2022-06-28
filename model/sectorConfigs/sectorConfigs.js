@@ -5,7 +5,7 @@ boxLeft1 = {
   vert: 25,
   hor: 15,
   angle: 90,
-  sectorPreference: 1,
+  sectorPreference: 4,
 };
 boxLeft2 = {
   rows: boxMap,
@@ -14,7 +14,7 @@ boxLeft2 = {
   vert: 40,
   hor: 15,
   angle: 90,
-  sectorPreference: 1,
+  sectorPreference: 4,
 };
 boxLeft3 = {
   rows: boxMap,
@@ -23,7 +23,7 @@ boxLeft3 = {
   vert: 55,
   hor: 15,
   angle: 90,
-  sectorPreference: 1,
+  sectorPreference: 4,
 };
 sideBalconyLeft = {
   rows: sideBalconyMap,
@@ -33,7 +33,7 @@ sideBalconyLeft = {
   hor: 20,
   angle: 45,
   offset: 1,
-  sectorPreference: 2,
+  sectorPreference: 3,
 };
 boxRight1 = {
   rows: boxMap,
@@ -42,7 +42,7 @@ boxRight1 = {
   vert: 25,
   hor: 85,
   angle: -90,
-  sectorPreference: 1,
+  sectorPreference: 4,
 };
 boxRight2 = {
   rows: boxMap,
@@ -51,7 +51,7 @@ boxRight2 = {
   vert: 40,
   hor: 85,
   angle: -90,
-  sectorsectorPreference: 1,
+  sectorPreference: 4,
 };
 boxRight3 = {
   rows: boxMap,
@@ -60,7 +60,7 @@ boxRight3 = {
   vert: 55,
   hor: 85,
   angle: -90,
-  sectorPreference: 1,
+  sectorPreference: 4,
 };
 sideBalconyRight = {
   rows: sideBalconyMap,
@@ -70,7 +70,7 @@ sideBalconyRight = {
   hor: 80,
   angle: -45,
   offset: 1,
-  sectorPreference: 2,
+  sectorPreference: 3,
 };
 midBalcony = {
   rows: midBalconyMap,
@@ -78,7 +78,7 @@ midBalcony = {
   mirrored: false,
   vert: 80,
   hor: 50,
-  sectorPreference: 3,
+  sectorPreference: 2,
 };
 centralAuditorium = {
   rows: centralAuditoriumMap,
@@ -86,5 +86,5 @@ centralAuditorium = {
   mirrored: false,
   vert: 45,
   hor: 50,
-  sectorPreference: 4,
+  sectorPreference: 1,
 };
