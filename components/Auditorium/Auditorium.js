@@ -51,9 +51,11 @@ class Auditorium {
     this.sectors.forEach((sector) => {
       //iterating throug the rows
       sector.rows.forEach((row) => {
-        for (let i = 0; i < row.seatsNumber - max + 1; i++) {
+        const rowLength = row.seatsNumber;
+        for (let i = 0; i < row.seatsNumber - max; i++) {
           //taking a sample form the current row to check they are free, if they are free calculating the value of this position.
-          const nextNeighbours = row.seats.slice(i, i + max);
+          const nextNeighbours = row.seats.slice(i, i + +max);
+          //console.log(row.seats.slice(i, i + +max), i, i + +max);
 
           //checking all the required seats are free?
           const isAllFree = nextNeighbours
@@ -62,25 +64,31 @@ class Auditorium {
 
           if (isAllFree) {
             //calculating the price of all the seats - less value means a higher price
-            const neighboursPrice = nextNeighbours
-              .map((seat) => 4 - seat.seatCategory.category)
-              .reduce((sum, category) => sum + category);
+            const neighboursPrice =
+              nextNeighbours
+                .map((seat) => 4 - seat.seatCategory.category)
+                .reduce((sum, category) => sum + category) /
+              (max * 4);
 
             //calculating the value of the seat position in the row - less is more in the middle - more valued has more offset
             const positionIndex =
-              nextNeighbours
-                .map((seat) => seat.seatPosPreference)
-                .reduce((a, b) => a + b) / max;
+              (1 +
+                nextNeighbours
+                  .map((seat) => seat.seatPosPreference)
+                  .reduce((a, b) => a + b)) /
+              rowLength /
+              2;
 
             //calculaing the correct row numbering
             const rowNumber = row.rowNr + 1;
 
+            //calculating the sector index
+            const sectorIndex = sector.sectorPreference / 4;
+            console.log(sector.name, sectorIndex);
+
             //the global value of the position
             const positionValue =
-              rowNumber *
-              sector.sectorPreference *
-              positionIndex *
-              neighboursPrice;
+              rowNumber * sectorIndex * positionIndex * neighboursPrice;
 
             //generating text about the seat numbers
             const seatText = nextNeighbours
@@ -92,12 +100,12 @@ class Auditorium {
 
             //collect all results into an array
             results.push({
-              neighbours: nextNeighbours,
-              seatNumbers: seatText,
-              neighboursText,
+              //neighbours: nextNeighbours,
+              //neighboursText,
               sectorName: sector.name,
               rowNumber,
-              sectorPreference: sector.sectorPreference,
+              seatNumbers: seatText,
+              sectorIndex,
               positionIndex,
               neighboursPrice,
               positionValue,
@@ -131,6 +139,10 @@ class Auditorium {
     return this.sectors.map((sector) => sector.getFreeSeats()).flat(1);
   }
 
+  freeUpAllSeats() {
+    this.getAllSeats().forEach((seat) => seat.setFree());
+  }
+
   //rendering the complete auditorium
   render(parent = "app") {
     this.addPanel();
@@ -147,12 +159,8 @@ class Auditorium {
     });
   }
 
-  freeUpAllSeats() {
-    this.getAllSeats().forEach((seat) => seat.setFree());
-  }
-
   addPanel() {
-    const panel = createDOMElem({
+    createDOMElem({
       tag: div,
       attrs: { class: "panel" },
       style: {
@@ -162,48 +170,69 @@ class Auditorium {
         padding: "10px",
         margin: "10px",
       },
-    });
-    const max = createDOMElem({
-      tag: input,
-      attrs: { class: "max", value: 4 },
-      style: {
-        width: "60px",
-      },
-      parent: panel,
-    });
-    createDOMElem({
-      tag: button,
-      attrs: { class: "reserve" },
-      parent: panel,
-      handleEvent: {
-        event: "click",
-        cb: () => {
-          this.reserve({ min: 2, max: max.value || 4 });
-        },
-      },
-      content: "reserve",
-    });
-    const rnd = createDOMElem({
-      tag: input,
-      attrs: { class: "random", value: 0.2 },
-      style: {
-        width: "60px",
-      },
-      parent: panel,
-    });
-
-    createDOMElem({
-      tag: button,
-      attrs: { class: "randomize" },
-      parent: panel,
-      handleEvent: {
-        event: "click",
-        cb: () => {
-          this.freeUpAllSeats();
-          this.randomReservation(rnd.value);
-        },
-      },
-      content: "randomize",
+      children: [
+        createDOMElem({
+          tag: div,
+          attrs: { class: "reserve-panel" },
+          children: [
+            createDOMElem({
+              tag: input,
+              attrs: { type: "number", id: "max", value: 4 },
+              style: {
+                width: "60px",
+              },
+            }),
+            createDOMElem({
+              tag: button,
+              attrs: { class: "reserve" },
+              handleEvent: {
+                event: "click",
+                cb: () => {
+                  this.reserve({
+                    min: 2,
+                    max: +document.getElementById("max").value || 4,
+                  });
+                },
+              },
+              content: "reserve",
+            }),
+          ],
+        }),
+        createDOMElem({
+          tag: div,
+          attrs: { class: "reserve-panel" },
+          children: [
+            createDOMElem({
+              tag: input,
+              attrs: {
+                type: "number",
+                step: "0.1",
+                min: "0.1",
+                max: "1",
+                id: "random",
+                value: 0.2,
+              },
+              style: {
+                width: "60px",
+              },
+            }),
+            createDOMElem({
+              tag: button,
+              attrs: { class: "randomize" },
+              handleEvent: {
+                event: "click",
+                cb: () => {
+                  this.freeUpAllSeats();
+                  this.randomReservation(
+                    +document.getElementById("random").value
+                  );
+                },
+              },
+              content: "randomize",
+            }),
+          ],
+        }),
+      ],
     });
   }
 }
