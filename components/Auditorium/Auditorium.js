@@ -15,8 +15,6 @@ class Auditorium {
       this.sectors.push(sector);
     });
 
-    this.addPanel();
-
     return this;
   }
 
@@ -135,6 +133,7 @@ class Auditorium {
 
   //rendering the complete auditorium
   render(parent = "app") {
+    this.addPanel();
     //creating the div of auditorium
     const auditoriumElem = createDOMElem({
       tag: div,
