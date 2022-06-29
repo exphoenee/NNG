@@ -44,6 +44,14 @@ class Sector {
     return this.rows.map((row) => row.getAllSeats()).flat(1);
   }
 
+  getLongestRow() {
+    let maxLength = 0;
+    this.rows.forEach((row) => {
+      maxLength = maxLength < row.seatsNumber ? row.seatsNumber : maxLength;
+    });
+    return maxLength;
+  }
+
   //this method gives back all the occupied seats in a flat array of an entire sector
   getOccupiedSeats() {
     return this.rows.map((row) => row.getOccupiedSeats()).flat(1);
