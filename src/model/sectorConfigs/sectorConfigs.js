@@ -1,6 +1,7 @@
+import * from "../sectorMap/sectorMaps.js";
 /* these little object literals containting the properties of a sector  */
 
-boxLeft1 = {
+export boxLeft1 = {
   rows: boxMap, // the rows, are the map of the sector, every row is an array what contains the price category of the seat
   name: "Box left 1.", //name of the sector
   mirrored: false, //it is mirrored or not
@@ -9,7 +10,7 @@ boxLeft1 = {
   angle: 90, //the angle of the sector on the screen given in degree
   sectorPreference: 4, //the preference value of a sector to calculate to position value in a seat neibourghood
 };
-boxLeft2 = {
+export boxLeft2 = {
   rows: boxMap,
   name: "Box left 2.",
   mirrored: false,
@@ -18,7 +19,7 @@ boxLeft2 = {
   angle: 90,
   sectorPreference: 4,
 };
-boxLeft3 = {
+export boxLeft3 = {
   rows: boxMap,
   name: "Box left 3.",
   mirrored: false,
@@ -27,7 +28,7 @@ boxLeft3 = {
   angle: 90,
   sectorPreference: 4,
 };
-sideBalconyLeft = {
+export sideBalconyLeft = {
   rows: sideBalconyMap,
   name: "Balcony left",
   mirrored: true,
@@ -37,7 +38,7 @@ sideBalconyLeft = {
   offset: 1,
   sectorPreference: 3,
 };
-boxRight1 = {
+export boxRight1 = {
   rows: boxMap,
   name: "Box right 1.",
   mirrored: true,
@@ -46,7 +47,7 @@ boxRight1 = {
   angle: -90,
   sectorPreference: 4,
 };
-boxRight2 = {
+export boxRight2 = {
   rows: boxMap,
   name: "Box right 2.",
   mirrored: true,
@@ -55,7 +56,7 @@ boxRight2 = {
   angle: -90,
   sectorPreference: 4,
 };
-boxRight3 = {
+export boxRight3 = {
   rows: boxMap,
   name: "Box right 3.",
   mirrored: true,
@@ -64,7 +65,7 @@ boxRight3 = {
   angle: -90,
   sectorPreference: 4,
 };
-sideBalconyRight = {
+export sideBalconyRight = {
   rows: sideBalconyMap,
   name: "Balcony right",
   mirrored: false,
@@ -74,7 +75,7 @@ sideBalconyRight = {
   offset: 1,
   sectorPreference: 3,
 };
-midBalcony = {
+export midBalcony = {
   rows: midBalconyMap,
   name: "Balcony mid.",
   mirrored: false,
@@ -82,7 +83,7 @@ midBalcony = {
   hor: 50,
   sectorPreference: 2,
 };
-centralAuditorium = {
+export centralAuditorium = {
   rows: centralAuditoriumMap,
   name: "Auditorium",
   mirrored: false,
