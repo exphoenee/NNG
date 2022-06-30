@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "domelemjs": "^1.1.19"
+    "domelemjs": "^1.1.19",
+    "webpack": "^5.73.0"
   }
 }
