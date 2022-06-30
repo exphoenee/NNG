@@ -14,6 +14,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Auditorium App",
       filename: "index.html",
+      template: "src/template/template.html",
     }),
   ],
 };
