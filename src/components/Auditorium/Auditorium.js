@@ -84,7 +84,6 @@ export default class Auditorium {
 
             //calculating the sector index
             const sectorIndex = sector.sectorPreference / 4;
-            console.log(sector.name, sectorIndex);
 
             //the global value of the position
             const positionValue =
