@@ -1,3 +1,7 @@
+import Auditorium from "./components/Auditorium/Auditorium.js";
+import * from "./model/sectorConfigs/sectorConfigs.js";
+
+
 //creating the auditorium object, form the sector configs - pleases see in the model directory
 const auditorium = new Auditorium([
   centralAuditorium,
