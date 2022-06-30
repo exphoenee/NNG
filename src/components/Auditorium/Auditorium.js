@@ -1,5 +1,7 @@
+import Sector from "../Sector/Sector.js";
+import { createDOMElem, div, input, button } from "domelemjs";
 /* Object of the entire Auditorium, the constructor of the class gets an array, that is writing down, the properties of the auditorium, please see the sectorConfigs in model directory */
-class Auditorium {
+export default class Auditorium {
   constructor(sectors) {
     this.sectors = [];
     this.seatNumber = 0;
@@ -31,9 +33,7 @@ class Auditorium {
         allSeats[Math.round(Math.random() * (seatNr - 1))].setOccupied(
           "Random"
         );
-      } while (
-        auditorium.getOccupiedSeats().length <= Math.ceil(seatNr * ammount)
-      );
+      } while (this.getOccupiedSeats().length <= Math.ceil(seatNr * ammount));
     }
   }
 
