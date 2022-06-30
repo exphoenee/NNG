@@ -1,4 +1,5 @@
 import Auditorium from "./components/Auditorium/Auditorium.js";
+import './stlye/style.scss'
 import * from "./model/sectorConfigs/sectorConfigs.js";
 
 
