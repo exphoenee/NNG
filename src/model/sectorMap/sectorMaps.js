@@ -1,11 +1,11 @@
 /* these 2 dimensional array writing down the rows and seats in a sector */
 
-export boxMap = [
+export const boxMap = [
   [1, 1, 1, 1], //the numbers are the price category of a seat
   [0, 0, 0, 0],
 ];
 
-export centralAuditoriumMap = [
+export const centralAuditoriumMap = [
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
   // 14 seat 14x5000 Ft seat
   [2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2],
@@ -40,14 +40,14 @@ export centralAuditoriumMap = [
   // 23 seat 3000 Ft seat
 ];
 
-export sideBalconyMap = [
+export const sideBalconyMap = [
   [2, 2, 2, 1, 1],
   [1, 1, 1, 0, 0],
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
 ];
 
-export midBalconyMap = [
+export const midBalconyMap = [
   [2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2],
   [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
