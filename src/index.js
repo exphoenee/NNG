@@ -1,7 +1,17 @@
 import Auditorium from "./components/Auditorium/Auditorium.js";
-import './stlye/style.scss'
-import * from "./model/sectorConfigs/sectorConfigs.js";
-
+import "./style/style.scss";
+import {
+  centralAuditorium,
+  midBalcony,
+  sideBalconyLeft,
+  sideBalconyRight,
+  boxLeft1,
+  boxLeft2,
+  boxLeft3,
+  boxRight1,
+  boxRight2,
+  boxRight3,
+} from "./model/sectorConfigs/sectorConfigs.js";
 
 //creating the auditorium object, form the sector configs - pleases see in the model directory
 const auditorium = new Auditorium([
