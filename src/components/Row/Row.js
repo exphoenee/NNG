@@ -1,6 +1,6 @@
 import Seat from "../Seat/Seat.js";
 import { trt } from "../../model/language/language.js";
-import { createDOMElem, div, p } from "domelemjs";
+import { createDOMElem, div, p } from "../../utils/domelem";
 
 /*
 this is the object of the rows, the object gets, the properies of the Auditorium, and the Sector as well, and pass down to the seat component also for later useage
