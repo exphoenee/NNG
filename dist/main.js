@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("throw new Error(\"Module parse failed: Unexpected token (2:9)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n| import Auditorium from \\\"./components/Auditorium/Auditorium.js\\\";\\n> import * from \\\"./model/sectorConfigs/sectorConfigs.js\\\";\\n| \\n| \");\n\n//# sourceURL=webpack://nng/./src/index.js?");
+eval("throw new Error(\"Module parse failed: Unexpected token (3:9)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n| import Auditorium from \\\"./components/Auditorium/Auditorium.js\\\";\\n| import './stlye/style.scss'\\n> import * from \\\"./model/sectorConfigs/sectorConfigs.js\\\";\\n| \\n| \");\n\n//# sourceURL=webpack://nng/./src/index.js?");
 
 /***/ })
 
