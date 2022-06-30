@@ -1,7 +1,5 @@
 {
-  "dependencies": {
-    "domelemjs": "^1.1.19"
-  },
+  "dependencies": {},
   "name": "nng",
   "version": "1.0.0",
   "main": "index.js",
