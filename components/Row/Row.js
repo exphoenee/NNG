@@ -8,7 +8,6 @@ class Row {
     this.rowNr = rowNr;
     this.sectorId = sectorId;
     this.seatsNumber = rowConf.length;
-    this.sectorPreference = rowConf.length - rowNr;
     this.sectorName = sectorName;
     this.sectorPreference = sectorPreference;
 
