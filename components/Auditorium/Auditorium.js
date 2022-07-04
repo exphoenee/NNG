@@ -84,7 +84,6 @@ class Auditorium {
 
             //calculating the sector index
             const sectorIndex = sector.sectorPreference / 4;
-            console.log(sector.name, sectorIndex);
 
             //the global value of the position
             const positionValue =
@@ -117,6 +116,7 @@ class Auditorium {
 
     //printing out gthe results into the console log
     console.table(results.sort((a, b) => a.positionValue - b.positionValue));
+    return results;
   }
 
   //returning the number of the seats in this auditorium
