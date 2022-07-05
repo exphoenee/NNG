@@ -5,9 +5,9 @@ class Auditorium {
     this.seatNumber = 0;
     this.wheighting = {
       rowNumber: 10,
-      sectorIndex: 100,
+      sectorIndex: 1000,
       positionIndex: 1,
-      neighboursPrice: 1000,
+      neighboursPrice: 100,
     };
 
     //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
@@ -99,10 +99,18 @@ class Auditorium {
               neighboursPrice,
             };
 
+            let wheigtedFactors = { ...factors };
+            Object.keys(wheigtedFactors).forEach(
+              (index) =>
+                (wheigtedFactors[index] =
+                  factors[index] * this.wheighting[index])
+            );
+
             //the calcualtion of global value of the position
-            const positionValue = Object.keys(factors)
-              .map((index) => factors[index] * this.wheighting[index])
-              .reduce((a, sum) => (sum = a * sum));
+            let positionValue = 1;
+            Object.keys(wheigtedFactors).forEach(
+              (index) => (positionValue += wheigtedFactors[index])
+            );
 
             //generating text about the seat numbers
             const seatText = nextNeighbours
@@ -119,9 +127,7 @@ class Auditorium {
               sectorName: sector.name,
               rowNumber,
               seatNumbers: seatText,
-              sectorIndex,
-              positionIndex,
-              neighboursPrice,
+              ...wheigtedFactors,
               positionValue,
             });
           }
@@ -130,7 +136,9 @@ class Auditorium {
     });
 
     //printing out gthe results into the console log
-    console.table(results.sort((a, b) => a.positionValue - b.positionValue));
+    results.length
+      ? console.table(results.sort((a, b) => a.positionValue - b.positionValue))
+      : console.log("Unfortunatelly there is no solution...");
     return results;
   }
 
