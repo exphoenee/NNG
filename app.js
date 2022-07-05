@@ -19,4 +19,4 @@ auditorium.render("app");
 auditorium.randomReservation(0.2);
 
 //find solutions for other neighbourg seats
-auditorium.reserve({ min: 2, max: 4 });
+auditorium.reserve(4);
