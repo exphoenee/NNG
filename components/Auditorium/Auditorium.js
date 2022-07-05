@@ -43,7 +43,7 @@ class Auditorium {
     }
   }
 
-  reserve({ min, max }) {
+  reserve(max) {
     //at very first ordering the sectors
     /* NOT NEEDED ANY MORE
     const sectorsOrdered = this.sectors.sort((a, b) => {
