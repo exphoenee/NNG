@@ -43,7 +43,7 @@ class Auditorium {
     }
   }
 
-  reserve(max) {
+  reserve(numberOfSeats) {
     //at very first ordering the sectors
     /* NOT NEEDED ANY MORE
     const sectorsOrdered = this.sectors.sort((a, b) => {
@@ -58,10 +58,10 @@ class Auditorium {
       //iterating throug the rows
       sector.rows.forEach((row) => {
         const rowLength = row.seatsNumber;
-        for (let i = 0; i < row.seatsNumber - max; i++) {
+        for (let i = 0; i < row.seatsNumber - numberOfSeats; i++) {
           //taking a sample form the current row to check they are free, if they are free calculating the value of this position.
-          const nextNeighbours = row.seats.slice(i, i + +max);
-          //console.log(row.seats.slice(i, i + +max), i, i + +max);
+          const nextNeighbours = row.seats.slice(i, i + +numberOfSeats);
+          //console.log(row.seats.slice(i, i + +numberOfSeats), i, i + +numberOfSeats);
 
           //checking all the required seats are free?
           const isAllFree = nextNeighbours
@@ -74,7 +74,7 @@ class Auditorium {
               nextNeighbours
                 .map((seat) => 4 - seat.seatCategory.category)
                 .reduce((sum, category) => sum + category) /
-              (max * 4);
+              (numberOfSeats * 4);
 
             //calculating the value of the seat position in the row - less is more in the middle - more valued has more offset
             const positionIndex =
@@ -211,10 +211,7 @@ class Auditorium {
               handleEvent: {
                 event: "click",
                 cb: () => {
-                  this.reserve({
-                    min: 2,
-                    max: +document.getElementById("max").value || 4,
-                  });
+                  this.reserve(+document.getElementById("max").value || 4);
                 },
               },
               content: "reserve",
