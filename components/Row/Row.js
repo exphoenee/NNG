@@ -6,10 +6,7 @@ class Row {
   constructor({ rowConf, rowNr, sectorId, sectorName, sectorPreference }) {
     this.seats = [];
     this.rowNr = rowNr;
-    this.sectorId = sectorId;
     this.seatsNumber = rowConf.length;
-    this.sectorName = sectorName;
-    this.sectorPreference = sectorPreference;
 
     //here is the seats created in the rows
     rowConf.forEach((category, seatNr) => {
