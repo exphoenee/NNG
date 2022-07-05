@@ -3,6 +3,12 @@ class Auditorium {
   constructor(sectors) {
     this.sectors = [];
     this.seatNumber = 0;
+    this.wheighting = {
+      rowNumber: 10,
+      sectorIndex: 100,
+      positionIndex: 1,
+      neighboursPrice: 1000,
+    };
 
     //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
     sectors.forEach((sectorConf, sectorId) => {
@@ -85,9 +91,18 @@ class Auditorium {
             //calculating the sector index
             const sectorIndex = sector.sectorPreference / 4;
 
-            //the global value of the position
-            const positionValue =
-              rowNumber * sectorIndex * positionIndex * neighboursPrice;
+            //creating the fator object literal
+            const factors = {
+              rowNumber,
+              sectorIndex,
+              positionIndex,
+              neighboursPrice,
+            };
+
+            //the calcualtion of global value of the position
+            const positionValue = Object.keys(factors)
+              .map((index) => factors[index] * this.wheighting[index])
+              .reduce((a, sum) => (sum = a * sum));
 
             //generating text about the seat numbers
             const seatText = nextNeighbours
