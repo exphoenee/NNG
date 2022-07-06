@@ -1,5 +1,5 @@
 import Sector from "../Sector/Sector.js";
-import { createDOMElem, div, input, button } from "../../utils/domelem";
+import { createDOMElem, div, input, button } from "domelemjs";
 /* Object of the entire Auditorium, the constructor of the class gets an array, that is writing down, the properties of the auditorium, please see the sectorConfigs in model directory */
 export default class Auditorium {
   constructor(sectors) {
