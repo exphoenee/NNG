@@ -1,5 +1,5 @@
 import Row from "../Row/Row.js";
-import { createDOMElem, div, p } from "../../utils/domelem";
+import { createDOMElem, div, p } from "domelemjs";
 
 /* Object of a sector, the sector holds the porperties of the auditorium what containg the sector, and all the properties are given down to the rows. */
 export default class Sector {
