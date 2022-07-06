@@ -1,5 +1,5 @@
 import TicketCategory from "../../model/Tickets/TicketCategory.js";
-import { createDOMElem, div, p } from "../../utils/domelem";
+import { createDOMElem, div, p } from "domelemjs";
 /* This is the object of the seat, every seat know that in which auditory / sector / row placed, every seat knows the price of the ticket that is valid for it */
 export default class Seat {
   constructor({
