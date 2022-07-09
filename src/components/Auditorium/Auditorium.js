@@ -6,10 +6,10 @@ export default class Auditorium {
     this.sectors = [];
     this.seatNumber = 0;
     this.wheighting = {
-      sectorIndex: 1,
-      rowNumber: 10,
-      positionIndex: 100,
-      neighboursPrice: 1000,
+      sectorIndex: 1000,
+      rowNumber: 100,
+      positionIndex: 10,
+      neighboursPrice: 1,
     };
 
     //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
@@ -106,8 +106,10 @@ export default class Auditorium {
                   factors[index] * this.wheighting[index])
             );
 
+            console.log(wheigtedFactors);
+
             //the calcualtion of global value of the position
-            let positionValue = 1;
+            let positionValue = 0;
             Object.keys(wheigtedFactors).forEach(
               (index) => (positionValue += wheigtedFactors[index])
             );
@@ -137,7 +139,7 @@ export default class Auditorium {
 
     //printing out gthe results into the console log
     results.length
-      ? console.table(results.sort((a, b) => a.positionValue - b.positionValue))
+      ? console.table(results.sort((a, b) => b.positionValue - a.positionValue))
       : console.log("Unfortunatelly there is no solution...");
     return results;
   }
