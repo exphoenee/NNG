@@ -37,7 +37,7 @@ export default class Auditorium {
     }
   }
 
-  reserve({ min, max }) {
+  reserve(numberOfSeats) {
     //at very first ordering the sectors
     /* NOT NEEDED ANY MORE
     const sectorsOrdered = this.sectors.sort((a, b) => {
@@ -52,10 +52,10 @@ export default class Auditorium {
       //iterating throug the rows
       sector.rows.forEach((row) => {
         const rowLength = row.seatsNumber;
-        for (let i = 0; i < row.seatsNumber - max; i++) {
+        for (let i = 0; i < row.seatsNumber - numberOfSeats; i++) {
           //taking a sample form the current row to check they are free, if they are free calculating the value of this position.
-          const nextNeighbours = row.seats.slice(i, i + +max);
-          //console.log(row.seats.slice(i, i + +max), i, i + +max);
+          const nextNeighbours = row.seats.slice(i, i + +numberOfSeats);
+          //console.log(row.seats.slice(i, i + +numberOfSeats), i, i + +numberOfSeats);
 
           //checking all the required seats are free?
           const isAllFree = nextNeighbours
@@ -68,7 +68,7 @@ export default class Auditorium {
               nextNeighbours
                 .map((seat) => 4 - seat.seatCategory.category)
                 .reduce((sum, category) => sum + category) /
-              (max * 4);
+              (numberOfSeats * 4);
 
             //calculating the value of the seat position in the row - less is more in the middle - more valued has more offset
             const positionIndex =
@@ -85,9 +85,26 @@ export default class Auditorium {
             //calculating the sector index
             const sectorIndex = sector.sectorPreference / 4;
 
-            //the global value of the position
-            const positionValue =
-              rowNumber * sectorIndex * positionIndex * neighboursPrice;
+            //creating the fator object literal
+            const factors = {
+              rowNumber,
+              sectorIndex,
+              positionIndex,
+              neighboursPrice,
+            };
+
+            let wheigtedFactors = { ...factors };
+            Object.keys(wheigtedFactors).forEach(
+              (index) =>
+                (wheigtedFactors[index] =
+                  factors[index] * this.wheighting[index])
+            );
+
+            //the calcualtion of global value of the position
+            let positionValue = 1;
+            Object.keys(wheigtedFactors).forEach(
+              (index) => (positionValue += wheigtedFactors[index])
+            );
 
             //generating text about the seat numbers
             const seatText = nextNeighbours
@@ -104,9 +121,7 @@ export default class Auditorium {
               sectorName: sector.name,
               rowNumber,
               seatNumbers: seatText,
-              sectorIndex,
-              positionIndex,
-              neighboursPrice,
+              ...wheigtedFactors,
               positionValue,
             });
           }
@@ -115,7 +130,10 @@ export default class Auditorium {
     });
 
     //printing out gthe results into the console log
-    console.table(results.sort((a, b) => a.positionValue - b.positionValue));
+    results.length
+      ? console.table(results.sort((a, b) => a.positionValue - b.positionValue))
+      : console.log("Unfortunatelly there is no solution...");
+    return results;
   }
 
   //returning the number of the seats in this auditorium
