@@ -5,6 +5,12 @@ export default class Auditorium {
   constructor(sectors) {
     this.sectors = [];
     this.seatNumber = 0;
+    this.wheighting = {
+      sectorIndex: 1,
+      rowNumber: 10,
+      positionIndex: 100,
+      neighboursPrice: 1000,
+    };
 
     //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
     sectors.forEach((sectorConf, sectorId) => {
