@@ -106,7 +106,7 @@ export default class Auditorium {
                   factors[index] * this.wheighting[index])
             );
 
-            console.log(wheigtedFactors);
+            //console.log(wheigtedFactors);
 
             //the calcualtion of global value of the position
             let positionValue = 0;
