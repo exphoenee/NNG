@@ -2,51 +2,60 @@ import Sector from "../Sector/Sector.js";
 import { createDOMElem, div, input, button } from "../../utils/domelem.js";
 /* Object of the entire Auditorium, the constructor of the class gets an array, that is writing down, the properties of the auditorium, please see the sectorConfigs in model directory */
 export default class Auditorium {
-  constructor(sectors) {
-    this.sectors = [];
-    this.seatNumber = 0;
-    this.wheighting = {
-      sectorIndex: 1000,
-      rowNumber: 100,
-      positionIndex: 10,
-      neighboursPrice: 1,
-    };
+  #sectors;
+  #seatNumber;
+  #wheighting;
+
+  constructor(
+    sectors,
+    { wheighting } = {
+      wheighting: {
+        sectorIndex: 1000,
+        rowNumber: 100,
+        positionIndex: 10,
+        neighboursPrice: 1,
+      },
+    }
+  ) {
+    this.#sectors = [];
+    this.#seatNumber = 0;
+    this.#wheighting = wheighting;
 
     //creating the sectors according to the sectorCofigs, and sectorMaps - please see in the model
     sectors.forEach((sectorConf, sectorId) => {
       const sector = new Sector({ ...sectorConf, sectorId });
 
       //form the sector getting the number of seats in the sector
-      this.seatNumber += sector.seatNumber;
+      this.#seatNumber += sector.seatNumber;
 
       //push into the sectors of the auditorium
-      this.sectors.push(sector);
+      this.#sectors.push(sector);
     });
 
     return this;
   }
 
   //filling up this auditorium with occupied seats
-  randomReservation(ammount = 0) {
+  #randomReservation(ammount = 0) {
     if (ammount < 0.2) {
       console.error(
-        "The amount of reserved seat must be over 20% of the entire seats!"
+        "The amount of #reserved seat must be over 20% of the entire seats!"
       );
     } else {
-      const allSeats = this.getAllSeats();
+      const allSeats = this.allSeats();
       const seatNr = allSeats.length;
       do {
         allSeats[Math.round(Math.random() * (seatNr - 1))].setOccupied(
           "Random"
         );
-      } while (this.getOccupiedSeats().length <= Math.ceil(seatNr * ammount));
+      } while (this.occupiedSeats().length <= Math.ceil(seatNr * ammount));
     }
   }
 
-  reserve(numberOfSeats) {
+  #reserve(numberOfSeats) {
     //at very first ordering the sectors
     /* NOT NEEDED ANY MORE
-    const sectorsOrdered = this.sectors.sort((a, b) => {
+    const sectorsOrdered = this.#sectors.sort((a, b) => {
       a.sectorPreference - b.sectorPreference;
     });
     */
@@ -54,7 +63,7 @@ export default class Auditorium {
     let results = [];
 
     //iterating through the sectors
-    this.sectors.forEach((sector) => {
+    this.#sectors.forEach((sector) => {
       //iterating throug the rows
       sector.rows.forEach((row) => {
         const rowLength = row.seatsNumber;
@@ -103,7 +112,7 @@ export default class Auditorium {
             Object.keys(wheigtedFactors).forEach(
               (index) =>
                 (wheigtedFactors[index] =
-                  factors[index] * this.wheighting[index])
+                  factors[index] * this.#wheighting[index])
             );
 
             //console.log(wheigtedFactors);
@@ -145,27 +154,27 @@ export default class Auditorium {
   }
 
   //returning the number of the seats in this auditorium
-  getSeatNumber() {
-    return this.seatNumber;
+  get seatNumber() {
+    return this.#seatNumber;
   }
 
   //returning all the seats in this auditorium
-  getAllSeats() {
-    return this.sectors.map((sector) => sector.getAllSeats()).flat(1);
+  get allSeats() {
+    return this.#sectors.map((sector) => sector.allSeats()).flat(1);
   }
 
   //returning all the occupied seats in this auditorium
-  getOccupiedSeats() {
-    return this.sectors.map((sector) => sector.getOccupiedSeats()).flat(1);
+  get occupiedSeats() {
+    return this.#sectors.map((sector) => sector.occupiedSeats()).flat(1);
   }
 
   //returning all the free seats in this auditorium
-  getFreeSeats() {
-    return this.sectors.map((sector) => sector.getFreeSeats()).flat(1);
+  get freeSeats() {
+    return this.#sectors.map((sector) => sector.freeSeats()).flat(1);
   }
 
   freeUpAllSeats() {
-    this.getAllSeats().forEach((seat) => seat.setFree());
+    this.allSeats().forEach((seat) => seat.setFree());
   }
 
   //rendering the complete auditorium
@@ -179,7 +188,7 @@ export default class Auditorium {
     });
 
     //rendering every sectors
-    this.sectors.forEach((sector) => {
+    this.#sectors.forEach((sector) => {
       sector.render(auditoriumElem);
     });
   }
@@ -198,7 +207,7 @@ export default class Auditorium {
       children: [
         createDOMElem({
           tag: div,
-          attrs: { class: "reserve-panel" },
+          attrs: { class: "#reserve-panel" },
           children: [
             createDOMElem({
               tag: input,
@@ -209,23 +218,23 @@ export default class Auditorium {
             }),
             createDOMElem({
               tag: button,
-              attrs: { class: "reserve" },
+              attrs: { class: "#reserve" },
               handleEvent: {
                 event: "click",
                 cb: () => {
-                  this.reserve({
+                  this.#reserve({
                     min: 2,
                     max: +document.getElementById("max").value || 4,
                   });
                 },
               },
-              content: "reserve",
+              content: "#reserve",
             }),
           ],
         }),
         createDOMElem({
           tag: div,
-          attrs: { class: "reserve-panel" },
+          attrs: { class: "#reserve-panel" },
           children: [
             createDOMElem({
               tag: input,
@@ -248,7 +257,7 @@ export default class Auditorium {
                 event: "click",
                 cb: () => {
                   this.freeUpAllSeats();
-                  this.randomReservation(
+                  this.#randomReservation(
                     +document.getElementById("random").value
                   );
                 },
