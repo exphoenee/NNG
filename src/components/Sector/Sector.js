@@ -12,6 +12,7 @@ export default class Sector {
   #mirrored;
   #offset;
   #sectorPreference;
+  #seatNumber;
 
   constructor({
     rows,
@@ -24,16 +25,16 @@ export default class Sector {
     offset,
     sectorPreference,
   }) {
-    this.rows = [];
-    this.name = name;
-    this.vert = vert;
-    this.hor = hor;
-    this.angle = angle;
-    this.sectorId = sectorId;
-    this.mirrored = mirrored;
-    this.seatNumber = 0;
-    this.offset = offset;
-    this.sectorPreference = sectorPreference;
+    this.#rows = [];
+    this.#name = name;
+    this.#sectorId = sectorId;
+    this.#vert = vert;
+    this.#hor = hor;
+    this.#angle = angle;
+    this.#mirrored = mirrored;
+    this.#seatNumber = 0;
+    this.#offset = offset;
+    this.#sectorPreference = sectorPreference;
 
     //here is created all the rows according to the maps of the sector
     rows.forEach((rowConf, rowNr) => {
@@ -46,33 +47,48 @@ export default class Sector {
       });
 
       //here is calculated the number of the seat is all of the rows.
-      this.seatNumber += row.seatNumber;
-      this.rows.push(row);
+      this.#seatNumber += row.seatNumber;
+      this.addRow(row);
       return this;
     });
   }
 
-  //this method gives back all the seats in a flat array of an entire sector
-  getAllSeats() {
-    return this.rows.map((row) => row.getAllSeats()).flat(1);
+  get seatNumber() {
+    return this.#seatNumber;
   }
 
-  getLongestRow() {
+  /**
+   * @param {(arg0: Row) => void} row
+   */
+  addRow(row) {
+    this.#rows.push(row);
+  }
+
+  get rows() {
+    return this.#rows;
+  }
+
+  //this method gives back all the seats in a flat array of an entire sector
+  get allSeats() {
+    return this.#rows.map((row) => row.getAllSeats()).flat(1);
+  }
+
+  get longestRow() {
     let maxLength = 0;
-    this.rows.forEach((row) => {
+    this.#rows.forEach((row) => {
       maxLength = maxLength < row.seatsNumber ? row.seatsNumber : maxLength;
     });
     return maxLength;
   }
 
   //this method gives back all the occupied seats in a flat array of an entire sector
-  getOccupiedSeats() {
-    return this.rows.map((row) => row.getOccupiedSeats()).flat(1);
+  get occupiedSeats() {
+    return this.#rows.map((row) => row.getOccupiedSeats()).flat(1);
   }
 
   //this method gives back all the free seats in a flat array of an entire sector
-  getFreeSeats() {
-    return this.rows.map((row) => row.getFreeSeats()).flat(1);
+  get freeSeats() {
+    return this.#rows.map((row) => row.getFreeSeats()).flat(1);
   }
 
   //this method renders the entire sector
@@ -80,16 +96,16 @@ export default class Sector {
     const sectorContainer = createDOMElem({
       tag: div,
       attrs: {
-        class: `sector-container ${this.name
+        class: `sector-container ${this.#name
           .replaceAll(" ", "-")
           .replaceAll(".", "")}`,
-        id: `sectorId-${this.sectorId}`,
+        id: `sectorId-${this.#sectorId}`,
       },
       //here forced some styling throug the javascript, because the positions comes from the sectorConfig literal object, please see in the model directory
       style: {
-        top: `${this.vert}%`,
-        left: `${this.hor}%`,
-        transform: `translate(-50%,-50%) rotate(${this.angle || 0}deg)`,
+        top: `${this.#vert}%`,
+        left: `${this.#hor}%`,
+        transform: `translate(-50%,-50%) rotate(${this.#angle || 0}deg)`,
       },
       parent: parent,
       children: [
@@ -98,14 +114,14 @@ export default class Sector {
           attrs: {
             class: `title`,
           },
-          children: [{ tag: p, content: this.name }],
+          children: [{ tag: p, content: this.#name }],
         },
       ],
     });
 
     //rendering the rows in the sector
-    this.rows.forEach((row) => {
-      row.render(sectorContainer, this.mirrored, this.offset);
+    this.#rows.forEach((row) => {
+      row.render(sectorContainer, this.#mirrored, this.#offset);
     });
   }
 }
