@@ -7,14 +7,21 @@ this is the object of the rows, the object gets, the properies of the Auditorium
 */
 
 export default class Row {
+  #seats;
+  #rowNr;
+  #sectorId;
+  #seatsNumber;
+  #sectorPreference;
+  #sectorName;
+
   constructor({ rowConf, rowNr, sectorId, sectorName, sectorPreference }) {
-    this.seats = [];
-    this.rowNr = rowNr;
-    this.sectorId = sectorId;
-    this.seatsNumber = rowConf.length;
-    this.sectorPreference = rowConf.length - rowNr;
-    this.sectorName = sectorName;
-    this.sectorPreference = sectorPreference;
+    this.#seats = [];
+    this.#rowNr = rowNr;
+    this.#sectorId = sectorId;
+    this.#seatsNumber = rowConf.length;
+    //this.#sectorPreference = rowConf.length - rowNr;
+    this.#sectorName = sectorName;
+    this.#sectorPreference = sectorPreference;
 
     //here is the seats created in the rows
     rowConf.forEach((category, seatNr) => {
@@ -27,23 +34,27 @@ export default class Row {
         seatCategory: category,
         sectorName: sectorName,
       });
-      this.seats.push(thisSeat);
+      this.addSeat(thisSeat);
     });
     return this;
   }
 
   //this method gives back all the seats in a flat array of an entire row
-  getAllSeats() {
-    return this.seats;
+  get allSeats() {
+    return this.#seats;
+  }
+
+  addSeat(seat) {
+    this.#seats.push(seat);
   }
 
   //this method gives back all the occupied seats in a flat array of an entire row
-  getOccupiedSeats() {
-    return this.seats.filter((seat) => seat.occupied);
+  get occupiedSeats() {
+    return this.#seats.filter((seat) => seat.occupied);
   }
 
   //this method gives back all the free seats in a flat array of an entire row
-  getFreeSeats() {
+  get freeSeats() {
     return this.seats.filter((seat) => !seat.occupied);
   }
 
@@ -69,7 +80,7 @@ export default class Row {
     });
 
     //if the rows are mirrored in the sectror the revers the array
-    const toRender = mirrored ? this.seats.reverse() : this.seats;
+    const toRender = mirrored ? this.#seats.reverse() : this.#seats;
 
     //give some offset to the side balcony to get similar results than on the picture shown
     toRender.forEach((seat, index) => {
