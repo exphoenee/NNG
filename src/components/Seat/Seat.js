@@ -2,6 +2,11 @@ import TicketCategory from "../../model/Tickets/TicketCategory.js";
 import { createDOMElem, div, p } from "../../utils/domelem.js";
 /* This is the object of the seat, every seat know that in which auditory / sector / row placed, every seat knows the price of the ticket that is valid for it */
 export default class Seat {
+  #seatNr;
+  #guestName;
+  #occupied;
+  #seatCategory;
+
   constructor({
     seatNr,
     seatCategory,
@@ -12,7 +17,7 @@ export default class Seat {
     seatPosPreference,
     sectorPreference,
   }) {
-    this.seatNr = seatNr;
+    this.#seatNr = seatNr;
     this.seatDOM = null;
     this.sectorId = sectorId;
     this.sectorName = sectorName;
@@ -20,7 +25,7 @@ export default class Seat {
     this.seatPosPreference = seatPosPreference;
     this.sectorPreference = sectorPreference;
     guestName ? this.setOccupied(guestName) : this.setFree();
-    this.seatCategory = new TicketCategory(seatCategory);
+    this.#seatCategory = new TicketCategory(seatCategory);
     return this;
   }
 
@@ -30,8 +35,8 @@ export default class Seat {
       tag: div,
       attrs: {
         class: `seat seatNr-${this.seatNr} category-${
-          this.seatCategory.category
-        } ${this.occupied ? "occupied" : "free"}`,
+          this.#seatCategory.category
+        } ${this.#occupied ? "occupied" : "free"}`,
       },
       parent: parent,
       content: this.seatNr + 1,
@@ -39,45 +44,45 @@ export default class Seat {
         event: "click",
         cb: (e) => {
           e.preventDefault();
-          this.occupied ? this.setFree() : this.setOccupied("Test");
+          this.#occupied ? this.setFree() : this.setOccupied("Test");
         },
       },
     });
   }
 
   //this method gives back the number of the seat (ID)
-  getNumber() {
-    return this.seatNr;
+  get seatNr() {
+    return this.#seatNr;
   }
 
   //this method gives back the name of the guest who is sitting on it
-  getGuestName() {
-    return this.guestName;
+  get guestName() {
+    return this.#guestName;
   }
 
   //this method set the name of the guest who is sitting on it
   setGuestName(guestName) {
-    this.guestName = guestName;
+    this.#guestName = guestName;
   }
 
   //this method gives back the price of the valid ticket for the seat
-  getSeatPrice() {
+  get seatPrice() {
     return this.seatCategory.getPrice();
   }
 
   //this method gives back the category of the valid ticket for the seat
-  getSeatCategory() {
-    return this.seatCategory.getCategory();
+  get seatCategory() {
+    return this.#seatCategory.getCategory();
   }
 
   //this method gives back the the seat is occupied // TRUE or free /// FALSE
-  getOccupied() {
-    return this.occupied;
+  get occupied() {
+    return this.#occupied;
   }
 
   //this method set the seat to occupied // as argument we can give the name of the guest who is sitting on it
   setOccupied(guestName = "unknown") {
-    this.occupied = true;
+    this.#occupied = true;
     this.setGuestName(guestName);
     if (this.seatDOM) {
       this.seatDOM.classList.add("occupied");
@@ -87,7 +92,7 @@ export default class Seat {
   }
   //this method set the seat to free
   setFree() {
-    this.occupied = false;
+    this.#occupied = false;
     this.setGuestName(null);
     if (this.seatDOM) {
       this.seatDOM.classList.add("free");
