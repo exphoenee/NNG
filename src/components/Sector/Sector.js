@@ -70,7 +70,7 @@ export default class Sector {
 
   //this method gives back all the seats in a flat array of an entire sector
   get allSeats() {
-    return this.#rows.map((row) => row.getAllSeats()).flat(1);
+    return this.#rows.map((row) => row.allSeats).flat(1);
   }
 
   get longestRow() {
@@ -83,7 +83,7 @@ export default class Sector {
 
   //this method gives back all the occupied seats in a flat array of an entire sector
   get occupiedSeats() {
-    return this.#rows.map((row) => row.getOccupiedSeats()).flat(1);
+    return this.#rows.map((row) => row.occupiedSeats).flat(1);
   }
 
   //this method gives back all the free seats in a flat array of an entire sector
