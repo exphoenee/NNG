@@ -36,23 +36,23 @@ export default class Auditorium {
   }
 
   //filling up this auditorium with occupied seats
-  #randomReservation(ammount = 0) {
+  randomReservation(ammount = 0) {
     if (ammount < 0.2) {
       console.error(
         "The amount of #reserved seat must be over 20% of the entire seats!"
       );
     } else {
-      const allSeats = this.allSeats();
+      const allSeats = this.allSeats;
       const seatNr = allSeats.length;
       do {
         allSeats[Math.round(Math.random() * (seatNr - 1))].setOccupied(
           "Random"
         );
-      } while (this.occupiedSeats().length <= Math.ceil(seatNr * ammount));
+      } while (this.occupiedSeats.length <= Math.ceil(seatNr * ammount));
     }
   }
 
-  #reserve(numberOfSeats) {
+  reserve(numberOfSeats) {
     //at very first ordering the sectors
     /* NOT NEEDED ANY MORE
     const sectorsOrdered = this.#sectors.sort((a, b) => {
@@ -160,12 +160,12 @@ export default class Auditorium {
 
   //returning all the seats in this auditorium
   get allSeats() {
-    return this.#sectors.map((sector) => sector.allSeats()).flat(1);
+    return this.#sectors.map((sector) => sector.allSeats).flat(1);
   }
 
   //returning all the occupied seats in this auditorium
   get occupiedSeats() {
-    return this.#sectors.map((sector) => sector.occupiedSeats()).flat(1);
+    return this.#sectors.map((sector) => sector.occupiedSeats).flat(1);
   }
 
   //returning all the free seats in this auditorium
@@ -174,7 +174,7 @@ export default class Auditorium {
   }
 
   freeUpAllSeats() {
-    this.allSeats().forEach((seat) => seat.setFree());
+    this.allSeats.forEach((seat) => seat.setFree());
   }
 
   //rendering the complete auditorium
@@ -222,7 +222,7 @@ export default class Auditorium {
               handleEvent: {
                 event: "click",
                 cb: () => {
-                  this.#reserve({
+                  this.reserve({
                     min: 2,
                     max: +document.getElementById("max").value || 4,
                   });
@@ -257,7 +257,7 @@ export default class Auditorium {
                 event: "click",
                 cb: () => {
                   this.freeUpAllSeats();
-                  this.#randomReservation(
+                  this.randomReservation(
                     +document.getElementById("random").value
                   );
                 },
