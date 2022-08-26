@@ -3,6 +3,16 @@ import { createDOMElem, div, p } from "../../utils/domelem.js";
 
 /* Object of a sector, the sector holds the porperties of the auditorium what containg the sector, and all the properties are given down to the rows. */
 export default class Sector {
+  #rows;
+  #name;
+  #vert;
+  #hor;
+  #angle;
+  #sectorId;
+  #mirrored;
+  #offset;
+  #sectorPreference;
+
   constructor({
     rows,
     name,
