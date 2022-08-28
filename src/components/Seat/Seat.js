@@ -6,6 +6,12 @@ export default class Seat {
   #guestName;
   #occupied;
   #seatCategory;
+  #rowNr;
+  #seatPosPreference;
+  #sectorPreference;
+  #sectorId;
+  #sectorName;
+  #seatDOM;
 
   constructor({
     seatNr,
@@ -18,12 +24,12 @@ export default class Seat {
     sectorPreference,
   }) {
     this.#seatNr = seatNr;
-    this.seatDOM = null;
-    this.sectorId = sectorId;
-    this.sectorName = sectorName;
-    this.rowNr = rowNr;
-    this.seatPosPreference = seatPosPreference;
-    this.sectorPreference = sectorPreference;
+    this.#seatDOM = null;
+    this.#sectorId = sectorId;
+    this.#sectorName = sectorName;
+    this.#rowNr = rowNr;
+    this.#seatPosPreference = seatPosPreference;
+    this.#sectorPreference = sectorPreference;
     guestName ? this.setOccupied(guestName) : this.setFree();
     this.#seatCategory = new TicketCategory(seatCategory);
     return this;
@@ -31,7 +37,7 @@ export default class Seat {
 
   //rendering the seat
   render(parent) {
-    this.seatDOM = createDOMElem({
+    this.#seatDOM = createDOMElem({
       tag: div,
       attrs: {
         class: `seat seatNr-${this.seatNr} category-${
@@ -84,9 +90,9 @@ export default class Seat {
   setOccupied(guestName = "unknown") {
     this.#occupied = true;
     this.setGuestName(guestName);
-    if (this.seatDOM) {
-      this.seatDOM.classList.add("occupied");
-      this.seatDOM.classList.remove("free");
+    if (this.#seatDOM) {
+      this.#seatDOM.classList.add("occupied");
+      this.#seatDOM.classList.remove("free");
     }
     return this;
   }
@@ -94,9 +100,9 @@ export default class Seat {
   setFree() {
     this.#occupied = false;
     this.setGuestName(null);
-    if (this.seatDOM) {
-      this.seatDOM.classList.add("free");
-      this.seatDOM.classList.remove("occupied");
+    if (this.#seatDOM) {
+      this.#seatDOM.classList.add("free");
+      this.#seatDOM.classList.remove("occupied");
     }
     return this;
   }
